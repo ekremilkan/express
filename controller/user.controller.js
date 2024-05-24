@@ -117,3 +117,22 @@ exports.updateUser = async (req, res) => {
       .status(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };
+
+exports.updateProfilePhoto = async (req, res) => {
+  try {
+    const user = await service.userService.updateProfilePhoto(req);
+    res
+      .json({ ...baseResponse, data: user, message: "Guncelleme basarili" })
+      .status(StatusCodes.OK);
+  } catch (error) {
+    res
+      .json({
+        ...baseResponse,
+        message: "Kullanici guncellenemedi",
+        error: true,
+        success: false,
+        errorMessage: error.message,
+      })
+      .status(StatusCodes.INTERNAL_SERVER_ERROR);
+  }
+};
